@@ -14,14 +14,14 @@ class Todo {
     //it into a Todo object
     id: data['id'],
     description: data['description'],
-    //Since sqlite doesn't have boolean type for true/false
+    //Since sqLite doesn't have boolean type for true/false
     //we will 0 to denote that it is false
     //and 1 for true
     isDone: data['is_done'] == 0 ? false : true,
   );
   Map<String, dynamic> toDatabaseJson() => {
     //This will be used to convert Todo objects that
-    //are to be stored into the datbase in a form of JSON
+    //are to be stored into the database in a form of JSON
     "id": this.id,
     "description": this.description,
     "is_done": this.isDone == false ? 0 : 1,

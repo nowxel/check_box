@@ -14,31 +14,31 @@ class TodoBloc {
   //and broadcast it to observers/subscribers
   final _todoController = StreamController<List<Todo>>.broadcast();
 
-  get todos => _todoController.stream;
+  get toDos => _todoController.stream;
 
   TodoBloc() {
-    getTodos();
+    getToDos();
   }
 
-  getTodos({String query}) async {
-    //sink is a way of adding data reactively to the stream
+  getToDos({String query}) async {
+    //sink is a way of adding data reactive to the stream
     //by registering a new event
     _todoController.sink.add(await _todoRepository.getAllTodos(query: query));
   }
 
   addTodo(Todo todo) async {
     await _todoRepository.insertTodo(todo);
-    getTodos();
+    getToDos();
   }
 
   updateTodo(Todo todo) async {
     await _todoRepository.updateTodo(todo);
-    getTodos();
+    getToDos();
   }
 
   deleteTodoById(int id) async {
     _todoRepository.deleteTodoById(id);
-    getTodos();
+    getToDos();
   }
 
   dispose() {

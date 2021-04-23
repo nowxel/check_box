@@ -20,79 +20,80 @@ class HomePage extends StatelessWidget {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: SafeArea(
+          child: DefaultTextStyle(style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
+              fontFamily: 'RobotoMono',
+              fontStyle: FontStyle.normal,
+              fontSize: 19),
+              child: Container(
+                  color: Colors.white,
+                  padding:
+                  const EdgeInsets.only(left: 2.0, right: 2.0, bottom: 2.0),
+                  child: Container(
+                    //This is where the magic starts
+                      child: getToDosWidget())))),
+          bottomNavigationBar: BottomAppBar(
+            color: Colors.white,
             child: Container(
-                color: Colors.white,
-                padding:
-                const EdgeInsets.only(left: 2.0, right: 2.0, bottom: 2.0),
-                child: Container(
-                  //This is where the magic starts
-                    child: getTodosWidget()))),
-        bottomNavigationBar: BottomAppBar(
-          color: Colors.white,
-          child: Container(
-            decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(color: Colors.grey, width: 0.3),
-                )),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                IconButton(
-                    icon: Icon(
-                      Icons.menu,
-                      color: Colors.indigoAccent,
-                      size: 28,
-                    ),
-                    onPressed: () {
-                      //just re-pull UI for testing purposes
-                      todoBloc.getTodos();
-                    }),
-                Expanded(
-                  child: Text(
-                    "Todo",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'RobotoMono',
-                        fontStyle: FontStyle.normal,
-                        fontSize: 19),
-                  ),
-                ),
-                Wrap(children: <Widget>[
+              decoration: BoxDecoration(
+                  border: Border(
+                    top: BorderSide(color: Colors.grey, width: 0.3),
+                  )),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
                   IconButton(
-                    icon: Icon(
-                      Icons.search,
-                      size: 28,
-                      color: Colors.indigoAccent,
+                      icon: Icon(
+                        Icons.menu,
+                        color: Colors.indigoAccent,
+                        size: 28,
+                      ),
+                      onPressed: () {
+                        //just re-pull UI for testing purposes
+                        todoBloc.getToDos();
+                      }),
+                  Expanded(
+                    child: Text(
+                      "Todo",
                     ),
-                    onPressed: () {
-                      _showTodoSearchSheet(context);
-                    },
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(right: 5),
-                  )
-                ])
-              ],
+                  Wrap(children: <Widget>[
+                    IconButton(
+                      icon: Icon(
+                        Icons.search,
+                        size: 28,
+                        color: Colors.indigoAccent,
+                      ),
+                      onPressed: () {
+                        _showTodoSearchSheet(context);
+                      },
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(right: 5),
+                    )
+                  ])
+                ],
+              ),
             ),
           ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: Padding(
-          padding: EdgeInsets.only(bottom: 25),
-          child: FloatingActionButton(
-            elevation: 5.0,
-            onPressed: () {
-              _showAddTodoSheet(context);
-            },
-            backgroundColor: Colors.white,
-            child: Icon(
-              Icons.add,
-              size: 32,
-              color: Colors.indigoAccent,
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: Padding(
+            padding: EdgeInsets.only(bottom: 25),
+            child: FloatingActionButton(
+              elevation: 5.0,
+              onPressed: () {
+                _showAddTodoSheet(context);
+              },
+              backgroundColor: Colors.white,
+              child: Icon(
+                Icons.add,
+                size: 32,
+                color: Colors.indigoAccent,
+              ),
             ),
-          ),
-        ));
+          )
+        );
   }
 
   void _showAddTodoSheet(BuildContext context) {
@@ -100,16 +101,16 @@ class HomePage extends StatelessWidget {
     showModalBottomSheet(
         context: context,
         builder: (builder) {
-          return new Padding(
+          return Padding(
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: new Container(
+            child: Container(
               color: Colors.transparent,
-              child: new Container(
+              child: Container(
                 height: 230,
-                decoration: new BoxDecoration(
+                decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: new BorderRadius.only(
+                    borderRadius: BorderRadius.only(
                         topLeft: const Radius.circular(10.0),
                         topRight: const Radius.circular(10.0))),
                 child: Padding(
@@ -169,13 +170,13 @@ class HomePage extends StatelessWidget {
                                     */
                                     todoBloc.addTodo(newTodo);
 
-                                    //dismisses the bottomsheet
+                                    //dismisses the bottom_sheet
                                     Navigator.pop(context);
                                   }
                                 },
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ],
@@ -192,16 +193,16 @@ class HomePage extends StatelessWidget {
     showModalBottomSheet(
         context: context,
         builder: (builder) {
-          return new Padding(
+          return Padding(
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: new Container(
+            child: Container(
               color: Colors.transparent,
-              child: new Container(
+              child: Container(
                 height: 230,
-                decoration: new BoxDecoration(
+                decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: new BorderRadius.only(
+                    borderRadius: BorderRadius.only(
                         topLeft: const Radius.circular(10.0),
                         topRight: const Radius.circular(10.0))),
                 child: Padding(
@@ -247,15 +248,15 @@ class HomePage extends StatelessWidget {
                                   color: Colors.white,
                                 ),
                                 onPressed: () {
-                                  /*This will get all todos
+                                  /*This will get all toDos
                                   that contains similar string
-                                  in the textform
+                                  in the text_form
                                   */
-                                  todoBloc.getTodos(
+                                  todoBloc.getToDos(
                                       query:
                                       _todoSearchDescriptionFormController
                                           .value.text);
-                                  //dismisses the bottomsheet
+                                  //dismisses the bottom_sheet
                                   Navigator.pop(context);
                                 },
                               ),
@@ -272,13 +273,13 @@ class HomePage extends StatelessWidget {
         });
   }
 
-  Widget getTodosWidget() {
+  Widget getToDosWidget() {
     /*The StreamBuilder widget,
-  basically this widget will take stream of data (todos)
+  basically this widget will take stream of data (toDos)
   and construct the UI (with state) based on the stream
   */
     return StreamBuilder(
-      stream: todoBloc.todos,
+      stream: todoBloc.toDos,
       builder: (BuildContext context, AsyncSnapshot<List<Todo>> snapshot) {
         return getTodoCardWidget(snapshot);
       },
@@ -293,14 +294,12 @@ class HomePage extends StatelessWidget {
     if (snapshot.hasData) {
       /*Also handles whenever there's stream
       but returned returned 0 records of Todo from DB.
-      If that the case show user that you have empty Todos
+      If that the case show user that you have empty ToDos
       */
       return snapshot.data.length != 0
-          ? ListView.builder(
-        itemCount: snapshot.data.length,
-        itemBuilder: (context, itemPosition) {
+          ? ListView.builder(itemCount: snapshot.data.length, itemBuilder: (context, itemPosition) {
           Todo todo = snapshot.data[itemPosition];
-          final Widget dismissibleCard = new Dismissible(
+          final Widget dismissibleCard = Dismissible(
             background: Container(
               child: Padding(
                 padding: EdgeInsets.only(left: 10),
@@ -409,8 +408,8 @@ class HomePage extends StatelessWidget {
   }
 
   Widget loadingData() {
-    //pull todos again
-    todoBloc.getTodos();
+    //pull toDos again
+    todoBloc.getToDos();
     return Container(
       child: Center(
         child: Column(
